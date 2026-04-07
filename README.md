@@ -67,7 +67,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements.txt```
 
 ## requirements.txt
 
@@ -81,13 +81,14 @@ torch==2.5.1+cu121
 
 ---
 
-## Run setup scripts:
+Run setup scripts:
 
+```bash
 # Setup Argos Translate
 python argos_setup.py
 
 # Preprocess the dataset
-python preprocessing.py
+python preprocessing.py```
 
 ---
 
