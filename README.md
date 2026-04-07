@@ -71,7 +71,6 @@ pip install -r requirements.txt
 ```
 
 requirements.txt contents:  
-
 - pandas  
 - transformers==4.40.2  
 - datasets  
