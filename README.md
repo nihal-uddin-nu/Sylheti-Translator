@@ -70,15 +70,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-requirements.txt  
+requirements.txt contents:  
 
-pandas  
-transformers==4.40.2  
-datasets  
-sentencepiece  
-accelerate  
-argostranslate  
-torch==2.5.1+cu121  
+- pandas  
+- transformers==4.40.2  
+- datasets  
+- sentencepiece  
+- accelerate  
+- argostranslate  
+- torch==2.5.1+cu121  
 
 ---
 
@@ -96,14 +96,14 @@ python preprocessing.py
 
 ## Training
 
-```bash
 Make sure GPU is active (optional if using CPU):
+
+```bash
 python test_gpu.py
 # Prints True if GPU is active, also prints torch version
 
-# Train the model
+# Train the model and save it to umt5_sylheti_model/
 python train.py
-# Output model saved to umt5_sylheti_model/
 ```
 
 Quick test training is available via **quick_train.py** using only the first 500 pairs.
@@ -138,7 +138,7 @@ Sylheti-Translator/
 ├── train.py  
 └── transliterate_latin_sylheti.py  
 
-> Automatically generated folders from training -- umt5_sylheti_model (contains output) and umt5_sylheti_model_sanity are excluded from Git via **.gitignore.**
+Automatically generated folders from training -- umt5_sylheti_model (contains output) and umt5_sylheti_model_sanity are excluded from Git via **.gitignore.**
 
 ---
 

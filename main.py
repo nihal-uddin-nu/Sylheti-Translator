@@ -24,6 +24,4 @@ match script:
         print("Unable to detect script. Please provide input in either English or Bangla.")
         exit()
 
-# implement sylheti to bangla translsation here (train model using 5k pair dataset?)
-
-# implement argos-translate bn to en here
+# TODO: implement inference in web app here
