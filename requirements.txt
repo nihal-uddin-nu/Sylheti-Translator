@@ -1,0 +1,12 @@
+# handle CSV files
+pandas==2.2.2
+
+# machine learning and deep learning libraries
+torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121 # This will install the latest version of PyTorch compatible with CUDA 12.1
+transformers==4.40.2 # latest version that is compatible with PyTorch 2.5.1 and is able to use CUDA 12.1
+datasets>=2.18.0
+sentencepiece>=0.1.99
+accelerate>=0.27.0
+
+# translation library -- for English-Bangla translation
+argostranslate>=1.9.0

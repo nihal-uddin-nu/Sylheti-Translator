@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Logs
+*.log
+
+# ML models
+umt5_sylheti_model/
+umt5_sylheti_model_sanity/
+.cache/
+
+# Training data
+data/train.csv
+
+# Old notebook containing scrap work for a non-ML approach
+Sylheti-Translator.ipynb
