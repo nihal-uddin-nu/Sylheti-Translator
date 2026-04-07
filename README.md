@@ -70,15 +70,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# requirements.txt
+requirements.txt  
 
-pandas
-transformers==4.40.2
-datasets
-sentencepiece
-accelerate
-argostranslate
-torch==2.5.1+cu121
+pandas  
+transformers==4.40.2  
+datasets  
+sentencepiece  
+accelerate  
+argostranslate  
+torch==2.5.1+cu121  
 
 ---
 
@@ -96,6 +96,7 @@ python preprocessing.py
 
 ## Training
 
+```bash
 Make sure GPU is active (optional if using CPU):
 python test_gpu.py
 # Prints True if GPU is active, also prints torch version
@@ -103,56 +104,58 @@ python test_gpu.py
 # Train the model
 python train.py
 # Output model saved to umt5_sylheti_model/
+```
 
 Quick test training is available via **quick_train.py** using only the first 500 pairs.
 
 ---
 
 ## Inference
-
+```bash
 python inference.py --text "ami haitam sai"
 # Runs Sylheti → Bangla translation and full Sylheti → English pipeline
 # Defaults to "ami zaimu" if --text is not provided
+```
 
 ---
 
 ## Folder Structure
 
-Sylheti-Translator/
-│
-├── data/
-│   └── Syl-Ban.csv
-├── .gitignore
-├── requirements.txt
-├── argos_setup.py
-├── detect_script.py
-├── inference.py
-├── preprocessing.py
-├── quick_train.py
-├── README.md
-├── Sylheti-Translator.ipynb
-├── test_gpu.py
-├── train.py
-└── transliterate_latin_sylheti.py
+Sylheti-Translator/  
+│  
+├── data/  
+│   └── Syl-Ban.csv  
+├── .gitignore  
+├── requirements.txt  
+├── argos_setup.py  
+├── detect_script.py  
+├── inference.py  
+├── preprocessing.py  
+├── quick_train.py  
+├── README.md  
+├── Sylheti-Translator.ipynb  
+├── test_gpu.py  
+├── train.py  
+└── transliterate_latin_sylheti.py  
 
 > Automatically generated folders from training -- umt5_sylheti_model (contains output) and umt5_sylheti_model_sanity are excluded from Git via **.gitignore.**
 
 ---
 
-## License
+## Future Work
 
-Code: Nihal Uddin
-Dataset: CC BY 4.0
- by Tabia Tanzin Prama & Mangsura Kabir Oni
+- Train direct Sylheti-English model to remove intermediate Bangla step  
+- Expand dataset with additional Sylheti text  
+- Add BLEU / ROUGE evaluation metrics  
+- Deploy as a web app for real-time translation  
+- Implement picture (image) and audio processing for multimodal Sylheti input  
 
 ---
 
-## Future Work
+## License
 
-Train direct Sylheti-English model to remove intermediate Bangla step
-Expand dataset with additional Sylheti text
-Add BLEU / ROUGE evaluation metrics
-Deploy as a web app for real-time translation
-Implement picture (image) and audio processing for multimodal Sylheti input
+Code: Nihal Uddin  
+Dataset: CC BY 4.0  
+ by Tabia Tanzin Prama & Mangsura Kabir Oni  
 
 ---
