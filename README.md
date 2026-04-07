@@ -67,9 +67,10 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt```
+pip install -r requirements.txt
+```
 
-## requirements.txt
+# requirements.txt
 
 pandas
 transformers==4.40.2
@@ -88,13 +89,14 @@ Run setup scripts:
 python argos_setup.py
 
 # Preprocess the dataset
-python preprocessing.py```
+python preprocessing.py
+```
 
 ---
 
 ## Training
 
-# Make sure GPU is active (optional if using CPU):
+Make sure GPU is active (optional if using CPU):
 python test_gpu.py
 # Prints True if GPU is active, also prints torch version
 
