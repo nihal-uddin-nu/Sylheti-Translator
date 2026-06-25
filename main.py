@@ -1,7 +1,8 @@
+"""Ignore for now -- this is where the main logic for the web app will go. The web app will call the inference function from inference.py to get the translation result, which will then be displayed on the web page."""
 import pandas as pd
 import sentencepiece as spm
-import detect_script as ds
-import transliterate_latin_sylheti as tls
+import sylheti_bangla_model.detect_script as ds
+import sylheti_bangla_model.transliterate_latin_sylheti as tls
 
 df = pd.read_csv('data/Syl2Ban.csv')
 

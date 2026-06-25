@@ -7,6 +7,3 @@ transformers==4.40.2 # latest version that is compatible with PyTorch 2.5.1 and 
 datasets>=2.18.0
 sentencepiece>=0.1.99
 accelerate>=0.27.0
-
-# translation library -- for English-Bangla translation
-argostranslate>=1.9.0

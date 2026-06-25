@@ -8,7 +8,7 @@ venv/
 # Logs
 *.log
 
-# ML models
+# ML models - Sylheti
 umt5_sylheti_model/
 umt5_sylheti_model_sanity/
 .cache/
