@@ -31,10 +31,10 @@ This project uses the **Sylheti–Bangla parallel dataset** provided by Tabia Ta
 
 **Example entry (after preprocessing):**
 
-| Sylheti        | Bangla           |
-|----------------|-----------------|
-| ami zaimu      | আমি যাব          |
-| tumi koi zaiba | তুমি কোথায় যাবে |
+| Sylheti        | Bangla           | English              |
+|----------------|-----------------|---------------------|
+| ami zaimu      | আমি যাব          | i will go           |
+| tumi koi zaiba | তুমি কোথায় যাবে | where will you go?  |
 
 > The full datasets used are included in this repository.
 
@@ -127,7 +127,7 @@ Sylheti-Translator/
 ├── translator/  
 │   ├── detect_script.py  
 │   ├── inference.py  
-│   └── transliterate_latin_sylheti.py  
+│   └── transliterate_latin_sylheti.py
 ├── .gitignore
 ├── main.py
 ├── README.md
