@@ -112,6 +112,7 @@ python inference.py --text "ami haitam sai"
 
 ## Folder Structure
 
+```text
 Sylheti-Translator/  
 ├── data/  
 │   ├── processed/  
@@ -148,6 +149,7 @@ Sylheti-Translator/
 ├── main.py  
 ├── README.md  
 └── requirements.txt  
+```
 
 Automatically generated folders from training -- umt5_sylheti_model (contains output) and umt5_sylheti_model_sanity are excluded from Git via **.gitignore.**
 
