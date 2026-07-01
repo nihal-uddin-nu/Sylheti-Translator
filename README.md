@@ -132,12 +132,12 @@ Sylheti-Translator/
 │   └── build_datasets.py  
 |  
 ├── training/  
-│   ├── translation/ 
+│   ├── translation/  
 |   │   ├── quick_train.py   
 |   │   └── train.py  
 │   ├── transliteration/  
-│   └── utils/
-|       └── test_gpu.py
+│   └── utils/  
+|       └── test_gpu.py  
 |  
 ├── translator/  
 │   ├── detect_script.py  
