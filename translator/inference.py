@@ -96,11 +96,21 @@ def translate_bangla_to_english(text: str) -> str:
         f"Translate Bangla to English: {text}"
     )
 
+def translate_english_to_bangla(text: str) -> str:
+    return generate_translation(
+        f"Translate English to Bangla: {text}"
+    )
+
 
 def translate_sylheti_to_english(text: str) -> str:
     bangla = translate_sylheti_to_bangla(text)
 
     return translate_bangla_to_english(bangla)
+
+def translate_english_to_sylheti(text: str) -> str:
+    bangla = translate_english_to_bangla(text)
+
+    return translate_bangla_to_sylheti(bangla)
 
 
 # ==================================================
@@ -115,7 +125,7 @@ def parse_args():
     parser.add_argument(
         "--text",
         type=str,
-        default="আমি যাইমু",
+        default="আমি যাইমু",   # "ami zaimu"
         help="Sylheti text to translate",
     )
 
