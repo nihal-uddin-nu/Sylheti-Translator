@@ -14,7 +14,7 @@ umt5_sylheti_model_sanity/
 .cache/
 
 # Training data
-data/train.csv
+data/processed/*
 
 # Old notebook containing scrap work for a non-ML approach
 Sylheti-Translator.ipynb
