@@ -114,20 +114,36 @@ python inference.py --text "ami haitam sai"
 
 Sylheti-Translator/  
 ├── data/  
-│   ├── raw/  
-│   │   ├── English-Bangla.txt  
-│   │   └── Sylheti-Bangla.csv  
-│   └── processed/  
+│   ├── processed/  
+│   └── raw/  
+│       ├── English-Bangla.txt  
+│       └── Sylheti-Bangla.csv  
+|  
+├── resources/  
+│   └── transliteration/  
+│       ├── bengali_script_to_latin/  
+│       │   └── mappings.json  
+│       └── latin_to_bengali_script/  
+│           ├── conjuncts.json  
+│           ├── consonants.json  
+│           └── vowels.json  
+|  
 ├── scripts/  
-│   ├── build_dataset.py  
+│   └── build_datasets.py  
+|  
 ├── training/  
-│   ├── quick_train.py   
-│   ├── test_gpu.py  
-│   └── train.py  
+│   ├── translation/ 
+|   │   ├── quick_train.py   
+|   │   └── train.py  
+│   ├── transliteration/  
+│   └── utils/
+|       └── test_gpu.py
+|  
 ├── translator/  
 │   ├── detect_script.py  
 │   ├── inference.py  
 │   └── transliterate_latin_sylheti.py  
+|  
 ├── .gitignore  
 ├── main.py  
 ├── README.md  
@@ -140,6 +156,7 @@ Automatically generated folders from training -- umt5_sylheti_model (contains ou
 ## Future Work
 
 - Accept Sylheti input using Latin alphabet
+- Translate from English to Sylheti
 - Train direct Sylheti-English model to remove intermediate Bangla step  
 - Expand dataset with additional Sylheti text  
 - Add BLEU / ROUGE evaluation metrics  
