@@ -1,0 +1,42 @@
+{
+  "a": {
+    "independent": "অ",
+    "sign": ""
+  },
+  "aa": {
+    "independent": "আ",
+    "sign": "া"
+  },
+  "i": {
+    "independent": "ই",
+    "sign": "ি"
+  },
+  "ii": {
+    "independent": "ঈ",
+    "sign": "ী"
+  },
+  "u": {
+    "independent": "উ",
+    "sign": "ু"
+  },
+  "uu": {
+    "independent": "ঊ",
+    "sign": "ূ"
+  },
+  "e": {
+    "independent": "এ",
+    "sign": "ে"
+  },
+  "oi": {
+    "independent": "ঐ",
+    "sign": "ৈ"
+  },
+  "o": {
+    "independent": "ও",
+    "sign": "ো"
+  },
+  "ou": {
+    "independent": "ঔ",
+    "sign": "ৌ"
+  }
+}
