@@ -1,74 +1,51 @@
+from pathlib import Path
+import json
 import re
 
-# --- Consonants ---
-CONSONANTS = {
-    "kh": "খ", "gh": "ঘ", "chh": "ছ", "ch": "চ", "jh": "ঝ",
-    "th": "থ", "dh": "ধ", "ph": "ফ", "bh": "ভ",
 
-    "k": "ক", "g": "গ", "j": "জ",
-    "t": "ত", "d": "দ", "n": "ন",
-    "p": "প", "b": "ব", "m": "ম",
-    "r": "র", "l": "ল",
-    "sh": "শ", "s": "স", "h": "হ",
-    "y": "য", "f": "ফ", "v": "ব"
-}
+# ==================================================
+# LOAD TRANSLITERATION RESOURCES
+# ==================================================
 
-# --- Independent vowels ---
-INDEPENDENT_VOWELS = {
-    "aa": "আ", "ii": "ঈ", "uu": "ঊ",
-    "a": "অ", "i": "ই", "u": "উ",
-    "e": "এ", "o": "ও",
-    "oi": "ঐ", "ou": "ঔ"
-}
+RESOURCE_DIR = (
+    Path(__file__).resolve().parent.parent
+    / "resources"
+    / "transliteration"
+    / "latin_to_bengali_script"
+)
 
-# --- Vowel signs ---
-VOWEL_SIGNS = {
-    "aa": "া", "i": "ি", "ii": "ী",
-    "u": "ু", "uu": "ূ",
-    "e": "ে", "oi": "ৈ",
-    "o": "ো", "ou": "ৌ"
-}
+with open(RESOURCE_DIR / "consonants.json", encoding="utf-8") as f:
+    CONSONANTS = json.load(f)
 
-# --- Common conjuncts ---
-CONJUNCTS = {
-    "kk": "ক্ক",
-    "kt": "ক্ত",
-    "nd": "ন্দ",
-    "nt": "ন্ত",
-    "ngk": "ঙ্ক",
-    "ngg": "ঙ্গ",
-    "mp": "ম্প",
-    "mb": "ম্ব",
-    "ndh": "ন্ধ",
-    "nch": "ঞ্চ",
-    "nj": "ঞ্জ",
-    "tt": "ট্ট",
-    "dd": "ড্ড",
-    "tr": "ত্র",
-    "dr": "দ্র",
-    "pr": "প্র",
-    "br": "ব্র",
-    "kr": "ক্র",
-    "gr": "গ্র",
-}
+with open(RESOURCE_DIR / "vowels.json", encoding="utf-8") as f:
+    VOWELS = json.load(f)
 
-# --- Nasal normalization ---
+with open(RESOURCE_DIR / "conjuncts.json", encoding="utf-8") as f:
+    CONJUNCTS = json.load(f)
+
+
+# ==================================================
+# NASAL HANDLING
+# ==================================================
+
 def handle_nasal(text):
-    # ng → ং when at end or before space
-    text = re.sub(r'ng\b', 'ং', text)
-    return text
+    # ng → ং when at end of a word
+    return re.sub(r"ng\b", "ং", text)
 
+
+# ==================================================
+# TRANSLITERATION
+# ==================================================
 
 def transliterate(text):
-    text = text.lower()
-    text = handle_nasal(text)
+    text = handle_nasal(text.lower())
 
     keys = sorted(
         list(CONJUNCTS.keys()) +
         list(CONSONANTS.keys()) +
-        list(INDEPENDENT_VOWELS.keys()),
+        list(VOWELS.keys()),
         key=len,
-        reverse=True
+        reverse=True,
     )
 
     i = 0
@@ -79,7 +56,7 @@ def transliterate(text):
         matched = False
 
         for k in keys:
-            if text[i:i+len(k)] == k:
+            if text.startswith(k, i):
 
                 # --- conjunct ---
                 if k in CONJUNCTS:
@@ -87,11 +64,11 @@ def transliterate(text):
                     prev_was_consonant = True
 
                 # --- vowel ---
-                elif k in INDEPENDENT_VOWELS:
+                elif k in VOWELS:
                     if prev_was_consonant:
-                        output += VOWEL_SIGNS.get(k, "")
+                        output += VOWELS[k]["sign"]
                     else:
-                        output += INDEPENDENT_VOWELS[k]
+                        output += VOWELS[k]["independent"]
                     prev_was_consonant = False
 
                 # --- consonant ---
@@ -110,4 +87,14 @@ def transliterate(text):
 
     return output
 
-#print(transliterate(input()))
+
+# ==================================================
+# MAIN
+# ==================================================
+
+def main() -> None:
+    print(transliterate(input()))
+
+
+if __name__ == "__main__":
+    main()
