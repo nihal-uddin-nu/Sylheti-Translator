@@ -6,7 +6,6 @@ from datasets import Dataset
 from transformers import (
     AutoModelForSeq2SeqLM,
     AutoTokenizer,
-    DataCollatorForSeq2Seq,
     Trainer,
     TrainingArguments,
 )
@@ -18,8 +17,8 @@ from transformers import (
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-TRAIN_CSV = ROOT_DIR / "data" / "processed" / "train.csv"
-OUTPUT_DIR = ROOT_DIR / "umt5_sylheti_model"
+TRANSLATE_CSV = ROOT_DIR / "data" / "processed" / "translate.csv"
+OUTPUT_DIR = ROOT_DIR / "umt5_sylheti_model_sanity"
 
 
 # ==================================================
@@ -28,13 +27,15 @@ OUTPUT_DIR = ROOT_DIR / "umt5_sylheti_model"
 
 MODEL_NAME = "google/umt5-small"
 
-MAX_LENGTH = 128
-BATCH_SIZE = 16
+MAX_LENGTH = 64
+BATCH_SIZE = 8
 
-EPOCHS = 15
-LEARNING_RATE = 3e-4
+EPOCHS = 2
+LEARNING_RATE = 5e-5
 
-SEED = 42
+SAMPLE_SIZE = 500
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 # ==================================================
@@ -45,12 +46,14 @@ def preprocess(batch, tokenizer):
     inputs = tokenizer(
         batch["input"],
         truncation=True,
+        padding="max_length",
         max_length=MAX_LENGTH,
     )
 
     targets = tokenizer(
         batch["output"],
         truncation=True,
+        padding="max_length",
         max_length=MAX_LENGTH,
     )
 
@@ -72,23 +75,30 @@ def preprocess(batch, tokenizer):
 # ==================================================
 
 def load_dataset() -> Dataset:
-    df = pd.read_csv(TRAIN_CSV)
-    df = df.dropna()
+    df = (
+        pd.read_csv(TRANSLATE_CSV)
+        .dropna()
+        .sample(SAMPLE_SIZE, random_state=42)
+    )
 
     return Dataset.from_pandas(df)
 
 
 # ==================================================
-# TRAINING
+# TRAINER SETUP
 # ==================================================
 
-def build_trainer() -> tuple[Trainer, AutoModelForSeq2SeqLM]:
+def build_trainer():
     dataset = load_dataset()
 
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-
-    model = AutoModelForSeq2SeqLM.from_pretrained(
+    tokenizer = AutoTokenizer.from_pretrained(
         MODEL_NAME,
+    )
+
+    model = (
+        AutoModelForSeq2SeqLM
+        .from_pretrained(MODEL_NAME)
+        .to(DEVICE)
     )
 
     dataset = dataset.map(
@@ -111,28 +121,44 @@ def build_trainer() -> tuple[Trainer, AutoModelForSeq2SeqLM]:
         per_device_eval_batch_size=BATCH_SIZE,
         num_train_epochs=EPOCHS,
         learning_rate=LEARNING_RATE,
-        logging_steps=50,
-        save_steps=500,
-        save_total_limit=2,
-        seed=SEED,
-        fp16=False,
-        bf16=torch.cuda.is_bf16_supported(),
-    )
-
-    data_collator = DataCollatorForSeq2Seq(
-        tokenizer,
-        model=model,
+        logging_steps=10,
+        save_steps=50,
+        save_total_limit=1,
     )
 
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=dataset,
-        tokenizer=tokenizer,
-        data_collator=data_collator,
+        processing_class=tokenizer,
     )
 
-    return trainer, model
+    return trainer, tokenizer, model
+
+
+# ==================================================
+# INFERENCE
+# ==================================================
+
+def generate_translation(
+    text: str,
+    tokenizer,
+    model,
+) -> str:
+    inputs = tokenizer(
+        text,
+        return_tensors="pt",
+    ).to(DEVICE)
+
+    outputs = model.generate(
+        **inputs,
+        max_length=MAX_LENGTH,
+    )
+
+    return tokenizer.decode(
+        outputs[0],
+        skip_special_tokens=True,
+    )
 
 
 # ==================================================
@@ -140,13 +166,33 @@ def build_trainer() -> tuple[Trainer, AutoModelForSeq2SeqLM]:
 # ==================================================
 
 def main() -> None:
-    trainer, _ = build_trainer()
+    trainer, tokenizer, model = build_trainer()
 
-    trainer.train(resume_from_checkpoint=True)
+    trainer.train()
+
     trainer.save_model(str(OUTPUT_DIR))
 
     print(f"\nModel saved to:")
     print(f"  {OUTPUT_DIR}")
+
+    print("\nQuick inference check:\n")
+
+    test_samples = [
+        "ami zaimu",
+        "tumi koi zaiba",
+        "amra bikel khai",
+    ]
+
+    for sample in test_samples:
+        translation = generate_translation(
+            sample,
+            tokenizer,
+            model,
+        )
+
+        print(f"Sylheti : {sample}")
+        print(f"Bangla  : {translation}")
+        print()
 
 
 if __name__ == "__main__":
