@@ -1,18 +1,23 @@
 def detect_script(text):
-    has_bangla = False
-    has_english = False
+    has_bengali = False
+    has_latin = False
 
     for ch in text:
         if '\u0980' <= ch <= '\u09FF':
-            has_bangla = True
-        elif ('a' <= ch.lower() <= 'z'):
-            has_english = True
+            has_bengali = True
 
-    if has_bangla and not has_english:
-        return "Bangla"
-    elif has_english and not has_bangla:
-        return "English"
-    elif has_bangla and has_english:
-        return "Mixed"
-    else:
-        return "Unknown"
+        elif ('a' <= ch.lower() <= 'z'):
+            has_latin = True
+
+    match (has_bengali, has_latin):
+        case (True, False):
+            return "Bangla"
+        
+        case (False, True):
+            return "Latin"
+        
+        case (True, True):
+            return "Mixed"
+        
+        case _:
+            return "Unknown"
