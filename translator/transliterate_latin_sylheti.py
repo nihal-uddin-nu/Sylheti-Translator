@@ -93,7 +93,7 @@ def transliterate(text):
 # ==================================================
 
 def main() -> None:
-    print(transliterate(input()))
+    print(transliterate(input("Enter text to transliterate: ")))
 
 
 if __name__ == "__main__":
