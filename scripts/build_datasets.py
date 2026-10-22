@@ -2,7 +2,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 # ==================================================
 # PATHS
 # ==================================================
@@ -143,7 +142,7 @@ def build_translation_dataset(output=TRANSLATE_CSV) -> None:
         encoding="utf-8",
     )
 
-    print(f"\nSaved translation dataset to:")
+    print("Saved translation dataset to:")
     print(f"  {output}")
 
 
@@ -172,7 +171,7 @@ def build_transliteration_dataset(output=TRANSLITERATE_CSV) -> None:
         encoding="utf-8",
     )
 
-    print(f"\nSaved transliteration dataset to:")
+    print("Saved transliteration dataset to:")
     print(f"  {output}")
 
 def build_datasets() -> None:
