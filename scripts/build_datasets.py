@@ -143,7 +143,7 @@ def build_translation_dataset(output=TRANSLATE_CSV) -> None:
         encoding="utf-8",
     )
 
-    print(f"\nSaved dataset to:")
+    print(f"\nSaved translation dataset to:")
     print(f"  {output}")
 
 
@@ -172,18 +172,9 @@ def build_transliteration_dataset(output=TRANSLITERATE_CSV) -> None:
         encoding="utf-8",
     )
 
-    print(f"\nSaved dataset to:")
+    print(f"\nSaved transliteration dataset to:")
     print(f"  {output}")
 
-
-# ==================================================
-# MAIN
-# ==================================================
-
-def main() -> None:
+def build_datasets() -> None:
     build_translation_dataset()
-    build_transliteration_dataset()
-
-
-if __name__ == "__main__":
-    main()
+    #build_transliteration_dataset() # WIP
