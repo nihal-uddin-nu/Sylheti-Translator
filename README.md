@@ -20,8 +20,8 @@ The goal is to build a modular Sylheti NLP toolkit that combines practical trans
 - **Sylheti ↔ English translation:** Translate between Sylheti and English through an intermediate Bangla representation.
 - **Sylheti ↔ Bangla translation:** Support translation between Sylheti and standard Bangla.
 - **Bangla ↔ English translation:** Support Bangla as both a source and target language.
-- **Script detection — work in progress:** Identify the script used in input text.
-- **Sylheti transliteration — work in progress:** Provide utilities and mapping resources for converting between Latin-alphabet Sylheti and Bengali-script Sylheti.
+- **Script detection:** Identify the script used in input text.
+- **Sylheti transliteration:** Provide utilities and mapping resources for converting between Latin-alphabet Sylheti and Bengali-script Sylheti.
 - **Autocomplete — work in progress:** Develop word- and sentence-level suggestions using trie-based data structures for Sylheti, Bangla, and English.
 - **Spelling correction — not started:** Planned functionality for detecting and correcting misspellings in Sylheti text.
 - **Neural machine translation:** Fine-tune uMT5-small for Sylheti-to-Bangla translation.
@@ -329,6 +329,7 @@ Sylheti-Translator/
 │
 ├── resources/
 │   ├── autocomplete/
+│   │   └── Generated word and sentence tries
 │   ├── spellcheck/
 │   └── transliteration/
 │       ├── bengali_script_to_latin/
@@ -403,4 +404,52 @@ Future development will focus on improving Sylheti language processing and compl
 
 ### Translation
 
-- Train and evaluate a direct Sylheti–
+- Train and evaluate a direct Sylheti–English model to compare against the existing two-stage pipeline.
+- Expand the Sylheti–Bangla parallel corpus.
+- Evaluate translation quality using BLEU, chrF, and human evaluation.
+- Investigate how the intermediate Bangla translation affects meaning preservation.
+
+### Autocomplete — In Progress
+
+- Complete and integrate trie-based autocomplete.
+- Improve word- and sentence-level suggestions.
+- Incorporate part-of-speech information and contextual language modeling.
+- Evaluate suggestion quality and response time.
+
+### Spelling Correction — Not Started
+
+- Design and implement a spelling-correction pipeline.
+- Explore phonetic matching for Latin-alphabet Sylheti.
+- Develop candidate ranking using contextual information.
+- Evaluate correction accuracy on a manually reviewed test set.
+
+### Transliteration and Application Development
+
+- Improve transliteration coverage for spelling and pronunciation variation.
+- Develop a web interface for translation, transliteration, and autocomplete.
+- Explore speech recognition and image-based text input for Sylheti.
+
+## License and Attribution
+
+### Code
+
+Copyright © Nihal Uddin.
+
+The code license should be specified in a separate `LICENSE` file. The repository's code license and the licenses of third-party datasets are distinct.
+
+### Sylheti–Bangla Dataset
+
+Tabia Tanzin Prama and Mangsura Kabir Oni, *A Dataset for Translating Local Bangla (Sylheti) Dialects into Standard Bangla*.
+
+[Original publication](https://www.sciencedirect.com/science/article/pii/S2352340926001290)
+
+### English–Bangla Data
+
+- [ManyThings.org](https://www.manythings.org/anki/)
+- [Tatoeba](https://tatoeba.org/)
+
+Please consult the original sources for their applicable licensing, attribution, and redistribution requirements.
+
+---
+
+**A Sylheti-focused NLP project exploring machine translation, transliteration, and language-input tools for a low-resource language.**
